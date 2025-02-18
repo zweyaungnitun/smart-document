@@ -1,6 +1,7 @@
 package com.smartai.documentmanagement.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -16,21 +17,43 @@ public class AccessLogServiceImpl implements AccessLogService{
 	public final AccessLogRepository accessLogRepository;
 
 	@Override
-	public AccessLog logAccess(AccessLog accessLog) {
+	public List<AccessLog> getAllAccessLogs() {
 		// TODO Auto-generated method stub
-		return null;
+		return accessLogRepository.findAll();
 	}
 
 	@Override
-	public List<AccessLog> getAccessLogByDocument(Long documentId) {
+	public Optional<AccessLog> getAccessLogById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return accessLogRepository.findById(id);
 	}
 
 	@Override
-	public List<AccessLog> getAccessLogByUser(Long userId) {
+	public AccessLog createAccessLog(AccessLog accessLog) {
 		// TODO Auto-generated method stub
-		return null;
+		return accessLogRepository.save(accessLog);
 	}
+
+	@Override
+	public AccessLog updateAccessLog(Long id, AccessLog accessLogDetails) {
+		// TODO Auto-generated method stub
+		return accessLogRepository.findById(id)
+				.map(log->{
+					log.setUserId(accessLogDetails.getUserId());
+                    log.setDocumentId(accessLogDetails.getDocumentId());
+                    log.setAccessType(accessLogDetails.getAccessType());
+                    log.setTimestamp(accessLogDetails.getTimestamp());
+                    return accessLogRepository.save(log);
+				})
+				.orElseThrow(()-> new RuntimeException(""));
+	}
+
+	@Override
+	public void deleteAccessLog(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

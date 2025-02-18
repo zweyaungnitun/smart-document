@@ -1,11 +1,14 @@
 package com.smartai.documentmanagement.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.smartai.documentmanagement.entity.AccessLog;
 
 public interface AccessLogService {
-	AccessLog logAccess(AccessLog accessLog);
-	List<AccessLog> getAccessLogByDocument(Long documentId);
-	List<AccessLog> getAccessLogByUser(Long userId);
+	List<AccessLog> getAllAccessLogs();
+	Optional<AccessLog> getAccessLogById(Long id);
+	AccessLog createAccessLog(AccessLog accessLog);
+	AccessLog updateAccessLog(Long id, AccessLog accessLogDetails);
+	void deleteAccessLog(Long id);
 }
