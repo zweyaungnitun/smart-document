@@ -10,4 +10,9 @@ public interface AccessLogRepository extends JpaRepository<AccessLog, Long>{
 
 	List<AccessLog> getAllAccessLog();
 
+	List<AccessLog> findByUserId(Long userId);
+
+	List<AccessLog> findByDocumentId(Long documentId);
+
+
 }
